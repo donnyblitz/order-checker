@@ -45,20 +45,26 @@
             getOrderDetails(awb);
         });
 
-        function getOrderDetails(awb) {
-            fetch('https://cors-anywhere.herokuapp.com/https://partner-api.rideblitz.id/v2/order/details', {
-                method: 'POST',
-                headers: {
-                    'customer-code': 'DEMOCC0001',
-                    'secret-key': 'dRJrHiGjudlpWCrizUAf4e6llbE0zRKz',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ 'awb_number': awb })
-            })
-            .then(response => response.json())
-            .then(data => {
-                var details = document.getElementById('orderDetails');
-                if(data.status === 'success') {
+        async function getOrderDetails(awb) {
+            const url = `https://partner-api-sandbox.rideblitz.id/v2/order/details/${awb}`;
+            try {
+                const response = await fetch(url, {
+                    method: 'GET',
+                    headers: {
+                        'customer-code': 'DEMOC0001',
+                        'secret-key': 'dRJrHiGjudlpWCrizUAf4e6llbEOzRKz',
+                        'Content-Type': 'application/json'
+                    }
+                });
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                const details = document.getElementById('orderDetails');
+
+                if (data.status === 'success') {
                     details.innerHTML = `
                         <p><strong>Order ID:</strong> ${data.data.merchant_order_id}</p>
                         <p><strong>AWB Number:</strong> ${data.data.awb_number}</p>
@@ -68,12 +74,11 @@
                 } else {
                     details.innerHTML = `<p><strong>Error:</strong> ${data.error_message}</p>`;
                 }
-            })
-            .catch(error => {
-                var details = document.getElementById('orderDetails');
+            } catch (error) {
+                const details = document.getElementById('orderDetails');
                 details.innerHTML = `<p><strong>Error:</strong> ${error.message}</p>`;
                 console.error('Error:', error);
-            });
+            }
         }
     </script>
 </body>
