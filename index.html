@@ -46,11 +46,11 @@
         });
 
         function getOrderDetails(awb) {
-            fetch('https://partner-api.rideblitz.id/v2/order/details', {
+            fetch('https://partner-api-sandbox.rideblitz.id/v2/order/details', {
                 method: 'POST',
                 headers: {
-                    'customer-code': 'your-customer-code',
-                    'secret-key': 'your-secret-key',
+                    'customer-code': 'DEMOCC0001',
+                    'secret-key': 'dRJrHiGjudlpWCrizUAf4e6llbE0zRKz',
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({ 'awb_number': awb })
