@@ -46,7 +46,7 @@
         });
 
         async function getOrderDetails(awb) {
-            const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+            const proxyUrl = 'https://api.allorigins.win/raw?url=';
             const url = `https://partner-api-sandbox.rideblitz.id/v2/order/details/${awb}`;
             try {
                 const response = await fetch(proxyUrl + url, {
