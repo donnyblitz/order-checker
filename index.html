@@ -46,7 +46,7 @@
         });
 
         function getOrderDetails(awb) {
-            fetch('https://partner-api-sandbox.rideblitz.id/v2/order/details', {
+            fetch('https://cors-anywhere.herokuapp.com/https://partner-api.rideblitz.id/v2/order/details', {
                 method: 'POST',
                 headers: {
                     'customer-code': 'DEMOCC0001',
