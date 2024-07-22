@@ -26,6 +26,7 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             margin-top: 20px;
+            white-space: pre-wrap; /* This makes it easier to read */
         }
     </style>
 </head>
@@ -33,7 +34,7 @@
     <h1>Check Order Details</h1>
     <form id="awbForm">
         <label for="awb">Enter AWB Number:</label>
-        <input type="text" id="awb" name="awb" value="" required>
+        <input type="text" id="awb" name="awb" value="BEMAWB-00000002209" required>
         <button type="submit">Get Order Details</button>
     </form>
     <div id="orderDetails"></div>
@@ -46,10 +47,10 @@
         });
 
         async function getOrderDetails(awb) {
-            const proxyUrl = 'https://api.allorigins.win/raw?url=';
+            const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
             const url = `https://partner-api-sandbox.rideblitz.id/v2/order/details/${awb}`;
             try {
-                const response = await fetch(proxyUrl + encodeURIComponent(url), {
+                const response = await fetch(proxyUrl + url, {
                     method: 'GET',
                     headers: {
                         'customer-code': 'DEMOC0001',
@@ -66,12 +67,7 @@
                 const details = document.getElementById('orderDetails');
 
                 if (data.status === 'success') {
-                    details.innerHTML = `
-                        <p><strong>Order ID:</strong> ${data.data.merchant_order_id}</p>
-                        <p><strong>AWB Number:</strong> ${data.data.awb_number}</p>
-                        <p><strong>Order Status:</strong> ${data.data.order_status}</p>
-                        <p><strong>Service Type:</strong> ${data.data.service_type}</p>
-                    `;
+                    details.innerHTML = JSON.stringify(data.data, null, 2);
                 } else {
                     details.innerHTML = `<p><strong>Error:</strong> ${data.error_message}</p>`;
                 }
