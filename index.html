@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Check Order Details</title>
+  </head>
+  <body>
+    <h1>Check Order Details</h1>
+    <form id="awbForm">
+      <label for="awb">Enter AWB Number:</label>
+      <input type="text" id="awb" name="awb" required />
+      <button type="submit">Get Order Details</button>
+    </form>
+    <div id="orderDetails"></div>
+
+    <script>
+      document
+        .getElementById("awbForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+          var awb = document.getElementById("awb").value;
+          getOrderDetails(awb);
+        });
+
+      function getOrderDetails(awb) {
+        fetch(https://partner-api-sandbox.rideblitz.id/v2/order/details/",
+          {
+            method: "POST",
+            headers: {
+              "customer-code": "DEMOCC0001",
+              "secret-key": "dRJrHiGjudlpWCrizUAf4e6llbE0zRKz",
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ awb_number: awb }),
+          }
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            var details = document.getElementById("orderDetails");
+            if (data.status === "success") {
+              details.innerHTML = `
+                        <p>Order ID: ${data.data.merchant_order_id}</p>
+                        <p>AWB Number: ${data.data.awb_number}</p>
+                        <p>Order Status: ${data.data.order_status}</p>
+                        <p>Service Type: ${data.data.service_type}</p>
+                    `;
+            } else {
+              details.innerHTML = `<p>Error: ${data.error_message}</p>`;
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+      }
+    </script>
+  </body>
+</html>
