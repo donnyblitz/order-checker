@@ -49,7 +49,7 @@
             const proxyUrl = 'https://api.allorigins.win/raw?url=';
             const url = `https://partner-api-sandbox.rideblitz.id/v2/order/details/${awb}`;
             try {
-                const response = await fetch(proxyUrl + url, {
+                const response = await fetch(proxyUrl + encodeURIComponent(url), {
                     method: 'GET',
                     headers: {
                         'customer-code': 'DEMOC0001',
@@ -66,4 +66,21 @@
                 const details = document.getElementById('orderDetails');
 
                 if (data.status === 'success') {
-                    details.innerHTML
+                    details.innerHTML = `
+                        <p><strong>Order ID:</strong> ${data.data.merchant_order_id}</p>
+                        <p><strong>AWB Number:</strong> ${data.data.awb_number}</p>
+                        <p><strong>Order Status:</strong> ${data.data.order_status}</p>
+                        <p><strong>Service Type:</strong> ${data.data.service_type}</p>
+                    `;
+                } else {
+                    details.innerHTML = `<p><strong>Error:</strong> ${data.error_message}</p>`;
+                }
+            } catch (error) {
+                const details = document.getElementById('orderDetails');
+                details.innerHTML = `<p><strong>Error:</strong> ${error.message}</p>`;
+                console.error('Error:', error);
+            }
+        }
+    </script>
+</body>
+</html>
