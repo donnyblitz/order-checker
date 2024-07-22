@@ -67,7 +67,7 @@
                 const details = document.getElementById('orderDetails');
 
                 if (data.status === 'success') {
-                    details.innerHTML = JSON.stringify(data.data, null, 2);
+                    details.innerHTML = JSON.stringify(data, null, 2);
                 } else {
                     details.innerHTML = `<p><strong>Error:</strong> ${data.error_message}</p>`;
                 }
@@ -77,6 +77,125 @@
                 console.error('Error:', error);
             }
         }
+
+        // Function to display example response
+        function displayExampleResponse() {
+            const exampleResponse = {
+                "status": "success",
+                "error_message": "",
+                "data": {
+                    "customer-code": "DEMOCC0001",
+                    "merchant_order_id": "TEST-BULK-31",
+                    "awb_number": "BEMAWB-00000002209",
+                    "order_status": "dropoff_done",
+                    "timestamp": "2024-06-20 13:44:35",
+                    "status_desc": "Paketmu sudah diterima",
+                    "delivery_attempt_number": "1",
+                    "service_type": "sameday_8_hours",
+                    "pickup_schedule_type": "standard",
+                    "payment_details": {
+                        "payment_type": "cod",
+                        "cod_amount": "1"
+                    },
+                    "origin": {
+                        "address": "Kompleks Pergudangan Widya Sakti Kusuma Blok D01-24, Jalan Raya Bekasi KM 28, Medan Satria, Kota Bekasi, Jawa Barat 17123",
+                        "district": "Dummy District",
+                        "city": "Kota Jakarta Barat",
+                        "province": "Jawa Barat",
+                        "postal_code": "12345",
+                        "coordinates": {
+                            "latitude": "0E-9",
+                            "longitude": "0E-9"
+                        }
+                    },
+                    "destination": {
+                        "address": "Perumahan Bekasi Timur Regency Blok B1 No.1 Kelurahan Cimuning, Kecamatan Mustikajaya, Kota Bekasi",
+                        "district": "aa",
+                        "city": "Kota Jakarta Timur",
+                        "province": "aa",
+                        "postal_code": "12345",
+                        "coordinates": {
+                            "latitude": "0E-9",
+                            "longitude": "0E-9"
+                        }
+                    },
+                    "sender": {
+                        "name": "Joko",
+                        "email": "",
+                        "phone_number": "+6281314746800",
+                        "pickup_instructions": "aabb"
+                    },
+                    "consignee": {
+                        "name": "Andi",
+                        "email": "Andi",
+                        "phone_number": "+6281314746800",
+                        "dropoff_instructions": "cc"
+                    },
+                    "actual_recipient": {
+                        "name": "b",
+                        "relation": "z"
+                    },
+                    "package_details": {
+                        "item_value": 1,
+                        "weight": "1.11",
+                        "volume": {
+                            "width": "1",
+                            "length": "1",
+                            "height": "1"
+                        }
+                    },
+                    "driver_details": {
+                        "name": "Joshua Anrico",
+                        "phone_number": "+6281314746807"
+                    },
+                    "proof_of_pickup": [
+                        "https://rideblitz-public.s3.ap-southeast-3.amazonaws.com/proofImages/6673cee055794d7713389d82-1718865703576-proofOfPickup_0_url.jpg",
+                        "https://rideblitz-public.s3.ap-southeast-3.amazonaws.com/proofImages/6673cee055794d7713389d82-1718865703576-proofOfPickup_1_url.jpg",
+                        "https://rideblitz-public.s3.ap-southeast-3.amazonaws.com/proofImages/6673cee055794d7713389d82-1718865703576-proofOfPickup_2_url.jpg"
+                    ],
+                    "proof_of_delivery": [
+                        [
+                            "https://rideblitz-public.s3.ap-southeast-3.amazonaws.com/proofImages/6673cee1921e912c143199f4-1718865875955-proofOfDelivery_0_url.jpg"
+                        ]
+                    ],
+                    "status_history": [
+                        {
+                            "order_status": "created",
+                            "timestamp": "2024-06-20 13:39:25"
+                        },
+                        {
+                            "order_status": "midmile_pickup_done",
+                            "timestamp": "2024-06-20 13:40:20"
+                        },
+                        {
+                            "order_status": "arrived_blitz_hub",
+                            "timestamp": "2024-06-20 13:40:31"
+                        },
+                        {
+                            "order_status": "pickup_started",
+                            "timestamp": "2024-06-20 13:41:01"
+                        },
+                        {
+                            "order_status": "pickup_done",
+                            "timestamp": "2024-06-20 13:41:43"
+                        },
+                        {
+                            "order_status": "dropoff_started",
+                            "timestamp": "2024-06-20 13:43:31"
+                        },
+                        {
+                            "order_status": "dropoff_done",
+                            "timestamp": "2024-06-20 13:44:35"
+                        }
+                    ]
+                }
+            };
+            const details = document.getElementById('orderDetails');
+            details.innerHTML = JSON.stringify(exampleResponse, null, 2);
+        }
+
+        // Call the function to display the example response
+        displayExampleResponse();
     </script>
 </body>
 </html>
